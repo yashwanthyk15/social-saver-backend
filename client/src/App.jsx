@@ -6,31 +6,34 @@ import "./index.css";
 const params = new URLSearchParams(window.location.search);
 const PHONE = params.get("user");
 
+// 🔥 Production Backend URL
+const BASE_URL = "https://social-saver-backend.onrender.com";
+
 function App() {
   const [data, setData] = useState([]);
-  const [categories, setCategories] = useState([]); // separate state
+  const [categories, setCategories] = useState([]);
   const [search, setSearch] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("");
 
-  // Fetch ALL content
+  // Fetch ALL content (filtered by user)
   const fetchData = async () => {
     const res = await axios.get(
-      `http://localhost:5000/dashboard/all`
+      `${BASE_URL}/dashboard/all?user=${PHONE}`
     );
     setData(res.data);
   };
 
-  // Fetch categories ONLY ONCE
+  // Fetch categories
   const fetchCategories = async () => {
     const res = await axios.get(
-      `http://localhost:5000/dashboard/categories`
+      `${BASE_URL}/dashboard/categories`
     );
     setCategories(res.data);
   };
 
   const searchData = async () => {
     const res = await axios.get(
-      `http://localhost:5000/dashboard/search/${PHONE}?q=${search}`
+      `${BASE_URL}/dashboard/search/${PHONE}?q=${search}`
     );
     setData(res.data);
   };
@@ -44,14 +47,14 @@ function App() {
     }
 
     const res = await axios.get(
-      `http://localhost:5000/dashboard/category/${PHONE}/${cat}`
+      `${BASE_URL}/dashboard/category/${PHONE}/${cat}`
     );
     setData(res.data);
   };
 
   const randomItem = async () => {
     const res = await axios.get(
-      `http://localhost:5000/dashboard/random/${PHONE}`
+      `${BASE_URL}/dashboard/random/${PHONE}`
     );
 
     if (res.data && !res.data.message) {
@@ -60,8 +63,10 @@ function App() {
   };
 
   useEffect(() => {
-    fetchData();
-    fetchCategories(); // fetch only once
+    if (PHONE) {
+      fetchData();
+      fetchCategories();
+    }
   }, []);
 
   return (
