@@ -3,34 +3,30 @@
 body {
   margin: 0;
   font-family: 'Inter', sans-serif;
-  background: #0f0f14;
-  color: #f5f5f5;
+  background: #0e1117;
+  color: #e6edf3;
 }
 
-/* Instagram gradient accent */
 :root {
-  --insta-gradient: linear-gradient(
-    45deg,
-    #f09433,
-    #e6683c,
-    #dc2743,
-    #cc2366,
-    #bc1888
-  );
+  --accent: #3b82f6;
+  --card-bg: #161b22;
+  --border: #2d333b;
 }
+
+/* ===== LAYOUT ===== */
 
 .container {
-  padding: 50px 70px;
+  max-width: 1200px;
+  margin: auto;
+  padding: 60px 40px;
 }
 
 h1 {
   text-align: center;
-  font-size: 32px;
-  margin-bottom: 40px;
+  font-size: 30px;
+  margin-bottom: 50px;
   font-weight: 600;
-  background: var(--insta-gradient);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+  letter-spacing: -0.5px;
 }
 
 /* ===== CONTROLS ===== */
@@ -40,102 +36,67 @@ h1 {
   gap: 12px;
   justify-content: center;
   flex-wrap: wrap;
-  margin-bottom: 40px;
+  margin-bottom: 50px;
 }
 
-input, button, select {
-  padding: 10px 16px;
-  border-radius: 12px;
-  border: 1px solid #2a2a35;
-  background: #1a1a23;
+input {
+  padding: 12px 18px;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  background: #0f141b;
   color: white;
   font-size: 14px;
-  transition: 0.3s ease;
+  width: 260px;
+  transition: 0.2s ease;
 }
 
 input:focus {
   outline: none;
-  border-color: #cc2366;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
 }
 
-button {
+button, select {
+  padding: 11px 16px;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  background: var(--card-bg);
+  color: white;
+  font-size: 14px;
   cursor: pointer;
+  transition: 0.2s ease;
 }
 
 button:hover, select:hover {
+  border-color: var(--accent);
   transform: translateY(-2px);
-  border-color: #dc2743;
-  box-shadow: 0 8px 20px rgba(220, 39, 67, 0.25);
 }
 
 /* ===== GRID ===== */
 
 .cards {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  gap: 25px;
+  grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+  gap: 28px;
 }
 
 /* ===== CARD ===== */
 
 .card {
-  background: #181821;
+  background: var(--card-bg);
+  border-radius: 16px;
   padding: 22px;
-  border-radius: 18px;
-  border: 1px solid #262636;
-  transition: 0.3s ease;
-  position: relative;
-  overflow: hidden;
-  opacity: 0;
-  transform: translateY(20px);
-  animation: fadeUp 0.5s forwards;
-}
-
-@keyframes fadeUp {
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+  border: 1px solid var(--border);
+  transition: 0.25s ease;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
 }
 
 .card:hover {
-  transform: translateY(-6px);
-  border-color: #cc2366;
-  box-shadow: 0 14px 28px rgba(188, 24, 136, 0.2);
-}
-
-/* subtle gradient top bar */
-.card::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  height: 4px;
-  width: 100%;
-  background: var(--insta-gradient);
-}
-
-/* ===== TEXT ===== */
-
-.card p {
-  font-size: 14px;
-  line-height: 1.6;
-  color: #d3d3d3;
-}
-
-.card a {
-  display: inline-block;
-  margin-top: 14px;
-  font-size: 13px;
-  text-decoration: none;
-  background: var(--insta-gradient);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  font-weight: 500;
-}
-
-.card a:hover {
-  opacity: 0.8;
+  border-color: var(--accent);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+  transform: translateY(-4px);
 }
 
 /* ===== BADGE ===== */
@@ -143,12 +104,35 @@ button:hover, select:hover {
 .badge {
   display: inline-block;
   font-size: 12px;
-  font-weight: 600;
-  padding: 6px 14px;
+  font-weight: 500;
+  padding: 6px 12px;
   border-radius: 20px;
-  margin-bottom: 14px;
-  background: var(--insta-gradient);
-  color: white;
+  background: rgba(59, 130, 246, 0.15);
+  color: var(--accent);
+  width: fit-content;
+}
+
+/* ===== TEXT ===== */
+
+.card p {
+  font-size: 14px;
+  line-height: 1.6;
+  color: #c9d1d9;
+}
+
+/* ===== LINK BUTTON ===== */
+
+.card a {
+  text-decoration: none;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--accent);
+  margin-top: auto;
+  transition: 0.2s ease;
+}
+
+.card a:hover {
+  opacity: 0.8;
 }
 
 /* ===== EMPTY STATE ===== */
@@ -156,6 +140,6 @@ button:hover, select:hover {
 .empty {
   text-align: center;
   margin-top: 80px;
-  color: #888;
+  color: #8b949e;
   font-size: 16px;
 }
