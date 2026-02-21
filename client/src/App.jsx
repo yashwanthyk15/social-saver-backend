@@ -83,7 +83,7 @@ function App() {
 
     setSelectedCategory(cat);
 
-    if (!cat) {
+    if (cat === "") {
       fetchData();
       return;
     }
