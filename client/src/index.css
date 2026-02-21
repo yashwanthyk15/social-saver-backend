@@ -1,32 +1,19 @@
-/* ================= THEME VARIABLES ================= */
-
-body.dark {
-  --bg: #0f172a;
-  --text: #e2e8f0;
-  --card: #1e293b;
-  --border: #334155;
-  --accent: #6366f1;
-}
-
-body.light {
-  --bg: #f8fafc;
-  --text: #0f172a;
-  --card: #ffffff;
-  --border: #e2e8f0;
-  --accent: #6366f1;
-}
-
-/* ================= GLOBAL ================= */
+/* ===== GLOBAL ===== */
 
 body {
   margin: 0;
   font-family: 'Inter', sans-serif;
-  background: var(--bg);
-  color: var(--text);
-  transition: background 0.3s ease, color 0.3s ease;
+  background: #0e1117;
+  color: #e6edf3;
 }
 
-/* ================= LAYOUT ================= */
+:root {
+  --accent: #3b82f6;
+  --card-bg: #161b22;
+  --border: #2d333b;
+}
+
+/* ===== LAYOUT ===== */
 
 .container {
   max-width: 1200px;
@@ -34,89 +21,117 @@ body {
   padding: 60px 40px;
 }
 
-.top-bar {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 40px;
-}
-
 h1 {
-  font-size: 28px;
+  text-align: center;
+  font-size: 30px;
+  margin-bottom: 50px;
   font-weight: 600;
+  letter-spacing: -0.5px;
 }
 
-/* ================= THEME BUTTON ================= */
-
-.theme-toggle {
-  padding: 8px 14px;
-  border-radius: 8px;
-  border: 1px solid var(--border);
-  background: var(--card);
-  color: var(--text);
-  cursor: pointer;
-}
-
-/* ================= CONTROLS ================= */
+/* ===== CONTROLS ===== */
 
 .controls {
   display: flex;
   gap: 12px;
+  justify-content: center;
   flex-wrap: wrap;
-  margin-bottom: 40px;
+  margin-bottom: 50px;
 }
 
-input,
-button,
-select {
-  padding: 10px 14px;
-  border-radius: 8px;
+input {
+  padding: 12px 18px;
+  border-radius: 10px;
   border: 1px solid var(--border);
-  background: var(--card);
-  color: var(--text);
+  background: #0f141b;
+  color: white;
+  font-size: 14px;
+  width: 260px;
   transition: 0.2s ease;
 }
 
 input:focus {
   outline: none;
   border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
 }
 
-/* ================= CARDS ================= */
+button,
+select {
+  padding: 11px 16px;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  background: var(--card-bg);
+  color: white;
+  font-size: 14px;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+button:hover,
+select:hover {
+  border-color: var(--accent);
+  transform: translateY(-2px);
+}
+
+/* ===== GRID ===== */
 
 .cards {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-  gap: 24px;
+  grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+  gap: 28px;
 }
 
+/* ===== CARD ===== */
+
 .card {
-  background: var(--card);
+  background: var(--card-bg);
+  border-radius: 16px;
+  padding: 22px;
   border: 1px solid var(--border);
-  border-radius: 14px;
-  padding: 20px;
+  transition: 0.25s ease;
   display: flex;
   flex-direction: column;
-  transition: 0.2s ease;
+  gap: 14px;
 }
 
 .card:hover {
   border-color: var(--accent);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
   transform: translateY(-4px);
 }
 
-/* ================= BADGE ================= */
+/* ===== IMAGE ===== */
+
+.card-image {
+  width: 100%;
+  border-radius: 12px;
+  object-fit: cover;
+  max-height: 220px;
+}
+
+/* ===== BADGE ===== */
 
 .badge {
-  background: rgba(99, 102, 241, 0.1);
-  color: var(--accent);
-  padding: 5px 10px;
-  border-radius: 20px;
+  display: inline-block;
   font-size: 12px;
+  font-weight: 500;
+  padding: 6px 12px;
+  border-radius: 20px;
+  background: rgba(59, 130, 246, 0.15);
+  color: var(--accent);
   width: fit-content;
 }
 
-/* ================= FOOTER ALIGNMENT ================= */
+/* ===== TEXT ===== */
+
+.card p {
+  font-size: 14px;
+  line-height: 1.6;
+  color: #c9d1d9;
+}
+
+/* ===== FOOTER (PERFECT ALIGNMENT) ===== */
 
 .card-footer {
   margin-top: auto;
@@ -124,6 +139,8 @@ input:focus {
   grid-template-columns: auto 1fr auto;
   align-items: center;
   font-size: 12px;
+  color: #8b949e;
+  padding-top: 10px;
 }
 
 .date {
@@ -134,29 +151,31 @@ input:focus {
   justify-self: center;
   color: var(--accent);
   text-decoration: none;
+  font-weight: 500;
+}
+
+.open-link:hover {
+  opacity: 0.8;
 }
 
 .delete-btn {
   justify-self: end;
-  background: none;
+  background: transparent;
   border: none;
   color: #ef4444;
   cursor: pointer;
+  font-size: 12px;
 }
 
-/* ================= PAGINATION ================= */
+.delete-btn:hover {
+  opacity: 0.7;
+}
 
-.pagination {
-  margin-top: 40px;
+/* ===== EMPTY ===== */
+
+.empty {
   text-align: center;
-}
-
-.pagination button {
-  margin: 0 6px;
-  padding: 6px 10px;
-}
-
-.active-page {
-  background: var(--accent);
-  color: white;
+  margin-top: 80px;
+  color: #8b949e;
+  font-size: 16px;
 }

@@ -15,24 +15,10 @@ function App() {
   const [search, setSearch] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("");
   const [loading, setLoading] = useState(false);
-  const [theme, setTheme] = useState(
-    localStorage.getItem("theme") || "dark"
-  );
 
+  // Pagination
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 6;
-
-  /* ================================
-     THEME HANDLING
-  ================================ */
-  useEffect(() => {
-    document.body.className = theme;
-    localStorage.setItem("theme", theme);
-  }, [theme]);
-
-  const toggleTheme = () => {
-    setTheme(theme === "dark" ? "light" : "dark");
-  };
 
   /* ================================
      Fetch All Content
@@ -55,6 +41,9 @@ function App() {
     }
   };
 
+  /* ================================
+     Fetch Categories
+  ================================ */
   const fetchCategories = async () => {
     if (!PHONE) return;
 
@@ -68,6 +57,9 @@ function App() {
     }
   };
 
+  /* ================================
+     Search
+  ================================ */
   const searchData = async () => {
     if (!PHONE || !search.trim()) return;
 
@@ -88,6 +80,9 @@ function App() {
     }
   };
 
+  /* ================================
+     Filter by Category
+  ================================ */
   const filterCategory = async (cat) => {
     if (!PHONE) return;
 
@@ -113,6 +108,9 @@ function App() {
     }
   };
 
+  /* ================================
+     Pagination Logic
+  ================================ */
   const indexOfLast = currentPage * itemsPerPage;
   const indexOfFirst = indexOfLast - itemsPerPage;
   const currentItems = data.slice(indexOfFirst, indexOfLast);
@@ -130,15 +128,12 @@ function App() {
     }
   }, []);
 
+  /* ================================
+     UI
+  ================================ */
   return (
     <div className="container">
-      <div className="top-bar">
-        <h1>📚 Social Saver</h1>
-
-        <button className="theme-toggle" onClick={toggleTheme}>
-          {theme === "dark" ? "🌙 Dark" : "☀ Light"}
-        </button>
-      </div>
+      <h1>📚 Social Saver Dashboard</h1>
 
       {PHONE && (
         <>
