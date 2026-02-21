@@ -180,8 +180,14 @@ function App() {
           ) : (
             <div className="cards">
               {data.map((item) => (
-                <ContentCard key={item._id} item={item} />
-              ))}
+  <ContentCard
+    key={item._id}
+    item={item}
+    onDelete={(id) =>
+      setData((prev) => prev.filter((x) => x._id !== id))
+    }
+  />
+))}
             </div>
           )}
         </>

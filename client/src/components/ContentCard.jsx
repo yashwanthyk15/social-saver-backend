@@ -1,7 +1,19 @@
 import React from "react";
+import axios from "axios";
 
-const ContentCard = ({ item }) => {
+const BASE_URL = "https://social-saver-backend.onrender.com";
+
+const ContentCard = ({ item, onDelete }) => {
   if (!item) return null;
+
+  const handleDelete = async () => {
+    try {
+      await axios.delete(`${BASE_URL}/dashboard/delete/${item._id}`);
+      onDelete(item._id);
+    } catch (error) {
+      console.error("Delete failed:", error);
+    }
+  };
 
   const formattedDate = item.createdAt
     ? new Date(item.createdAt).toLocaleDateString()
@@ -9,7 +21,6 @@ const ContentCard = ({ item }) => {
 
   return (
     <div className="card">
-      {/* Image Preview */}
       {item.image && (
         <img
           src={item.image}
@@ -23,17 +34,12 @@ const ContentCard = ({ item }) => {
         />
       )}
 
-      {/* Category Badge */}
       {item.category && (
         <div className="badge">{item.category}</div>
       )}
 
-      {/* AI Summary */}
-      {item.aiSummary && (
-        <p>{item.aiSummary}</p>
-      )}
+      {item.aiSummary && <p>{item.aiSummary}</p>}
 
-      {/* Footer Section */}
       <div
         style={{
           marginTop: "auto",
@@ -44,19 +50,29 @@ const ContentCard = ({ item }) => {
           color: "#8b949e"
         }}
       >
-        {formattedDate && (
-          <span>Saved on {formattedDate}</span>
-        )}
+        {formattedDate && <span>Saved on {formattedDate}</span>}
 
-        {item.url && (
+        <div style={{ display: "flex", gap: "10px" }}>
           <a
             href={item.url}
             target="_blank"
             rel="noopener noreferrer"
           >
-            Open Link →
+            Open →
           </a>
-        )}
+
+          <button
+            onClick={handleDelete}
+            style={{
+              background: "transparent",
+              border: "none",
+              color: "#ef4444",
+              cursor: "pointer"
+            }}
+          >
+            Delete
+          </button>
+        </div>
       </div>
     </div>
   );
