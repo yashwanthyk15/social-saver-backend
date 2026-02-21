@@ -12,7 +12,7 @@ const platformIcon = (platform) => {
 const ContentCard = ({ item, onDelete }) => {
   const formattedDate = item.createdAt
     ? new Date(item.createdAt).toLocaleDateString()
-    : null;
+    : "";
 
   const handleDelete = async () => {
     if (!window.confirm("Delete this item?")) return;
@@ -44,22 +44,23 @@ const ContentCard = ({ item, onDelete }) => {
       <p>{item.aiSummary}</p>
 
       <div className="card-footer">
-        <span>{formattedDate}</span>
+        <span className="date">{formattedDate}</span>
 
-        <div className="card-actions">
-          <a
-            href={item.url}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="open-link"
-          >
-            Open →
-          </a>
+        <a
+          href={item.url}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="open-link"
+        >
+          Open →
+        </a>
 
-          <button className="delete-btn" onClick={handleDelete}>
-            Delete
-          </button>
-        </div>
+        <button
+          className="delete-btn"
+          onClick={handleDelete}
+        >
+          Delete
+        </button>
       </div>
     </div>
   );
