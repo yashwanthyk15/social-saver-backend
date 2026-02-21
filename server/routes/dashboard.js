@@ -1,13 +1,14 @@
 const express = require("express");
 const router = express.Router();
 const Content = require("../models/Content");
+const authMiddleware = require("../middleware/auth");
 
 /* ================================
-   1️⃣ Get All Content
+   Get All Content
 ================================ */
-router.get("/all/:phone", async (req, res) => {
+router.get("/all", authMiddleware, async (req, res) => {
   try {
-    const { phone } = req.params;
+    const phone = req.userPhone;
 
     const data = await Content.find({ userPhone: phone })
       .sort({ createdAt: -1 });
@@ -19,15 +20,15 @@ router.get("/all/:phone", async (req, res) => {
 });
 
 /* ================================
-   2️⃣ Get All Unique Categories
+   Get Categories
 ================================ */
-router.get("/categories/:phone", async (req, res) => {
+router.get("/categories", authMiddleware, async (req, res) => {
   try {
-    const { phone } = req.params;
+    const phone = req.userPhone;
 
     const categories = await Content.distinct("category", {
       userPhone: phone,
-      category: { $exists: true, $ne: null, $ne: "" }
+      category: { $exists: true, $ne: null }
     });
 
     res.json(categories);
@@ -37,11 +38,11 @@ router.get("/categories/:phone", async (req, res) => {
 });
 
 /* ================================
-   3️⃣ Search Content
+   Search
 ================================ */
-router.get("/search/:phone", async (req, res) => {
+router.get("/search", authMiddleware, async (req, res) => {
   try {
-    const { phone } = req.params;
+    const phone = req.userPhone;
     const { q } = req.query;
 
     const results = await Content.find({
@@ -60,11 +61,12 @@ router.get("/search/:phone", async (req, res) => {
 });
 
 /* ================================
-   4️⃣ Filter by Category
+   Filter by Category
 ================================ */
-router.get("/category/:phone/:cat", async (req, res) => {
+router.get("/category/:cat", authMiddleware, async (req, res) => {
   try {
-    const { phone, cat } = req.params;
+    const phone = req.userPhone;
+    const { cat } = req.params;
 
     const data = await Content.find({
       userPhone: phone,
@@ -78,11 +80,11 @@ router.get("/category/:phone/:cat", async (req, res) => {
 });
 
 /* ================================
-   5️⃣ Random Item
+   Random
 ================================ */
-router.get("/random/:phone", async (req, res) => {
+router.get("/random", authMiddleware, async (req, res) => {
   try {
-    const { phone } = req.params;
+    const phone = req.userPhone;
 
     const count = await Content.countDocuments({ userPhone: phone });
 
@@ -92,8 +94,7 @@ router.get("/random/:phone", async (req, res) => {
 
     const random = Math.floor(Math.random() * count);
 
-    const item = await Content.findOne({ userPhone: phone })
-      .skip(random);
+    const item = await Content.findOne({ userPhone: phone }).skip(random);
 
     res.json(item);
   } catch (error) {
@@ -102,14 +103,11 @@ router.get("/random/:phone", async (req, res) => {
 });
 
 /* ================================
-   6️⃣ Delete Item
+   Delete
 ================================ */
-router.delete("/delete/:id", async (req, res) => {
+router.delete("/delete/:id", authMiddleware, async (req, res) => {
   try {
-    const { id } = req.params;
-
-    await Content.findByIdAndDelete(id);
-
+    await Content.findByIdAndDelete(req.params.id);
     res.json({ message: "Deleted successfully" });
   } catch (error) {
     res.status(500).json({ error: "Delete failed" });

@@ -1,3 +1,4 @@
+const jwt = require("jsonwebtoken");
 const express = require("express");
 const router = express.Router();
 const axios = require("axios");
@@ -22,10 +23,17 @@ router.post("/", async (req, res) => {
     // ❌ Not a link
     // Handle /start command
 if (incomingMsg === "/start") {
+  const token = jwt.sign(
+    { userPhone: chatId.toString() },
+    process.env.JWT_SECRET,
+    { expiresIn: "7d" }   // ✅ 7 DAY EXPIRY
+  );
+
   await axios.post(
     `https://api.telegram.org/bot${TELEGRAM_TOKEN}/sendMessage`,
     {
       chat_id: chatId,
+      parse_mode: "Markdown",
       text: `👋 *Welcome to Social Saver!*
 
 Send me:
@@ -38,7 +46,13 @@ I’ll automatically:
 * Generate a smart summary  
 * Store it in your personal dashboard  
 
-Just paste a link to begin 🚀`
+Just paste a link to begin 🚀
+
+🔐 *Your private dashboard (valid for 7 days):*
+https://social-saver-yk.onrender.com/?token=${token}
+
+⚠ After 7 days, this link will expire.
+Simply type /start again to get a new secure link.`
     }
   );
 
