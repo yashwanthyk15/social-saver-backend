@@ -51,6 +51,7 @@ const ContentCard = ({ item, onDelete }) => {
             href={item.url}
             target="_blank"
             rel="noopener noreferrer"
+            className="open-link"
           >
             Open →
           </a>
