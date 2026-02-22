@@ -13,8 +13,7 @@ It understands tone, sarcasm, meme culture, and multilingual content — then ge
 🤖 **Telegram Bot:**  
 https://t.me/social_saver_yk_bot
 
-📊 **Dashboard:**  
-https://social-saver-frontend.onrender.com  
+ A private dashboard will be generated with u click on start
 
 **Explaination(video):**
 https://drive.google.com/file/d/13XxL2ao0DGIGd6JLL5c8L2MpCJAh5xLN/view?usp=sharing
@@ -107,6 +106,7 @@ React Dashboard (Vite)
   "image": "...",
   "createdAt": "timestamp"
 }
+
 
 
 
