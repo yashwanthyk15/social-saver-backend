@@ -16,7 +16,7 @@ https://t.me/YOUR_BOT_USERNAME
 📊 **Dashboard:**  
 https://social-saver-frontend.onrender.com  
 
-Explaination(video)
+**Explaination(video):**
 https://drive.google.com/file/d/13XxL2ao0DGIGd6JLL5c8L2MpCJAh5xLN/view?usp=sharing
 
 ---
@@ -107,5 +107,6 @@ React Dashboard (Vite)
   "image": "...",
   "createdAt": "timestamp"
 }
+
 
 
