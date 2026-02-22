@@ -133,6 +133,36 @@ function App() {
   };
 
   /* ================================
+     Random Inspiration
+  ================================ */
+  const getRandomInspiration = async () => {
+    if (!TOKEN) return;
+
+    try {
+      setLoading(true);
+
+      const res = await axios.get(
+        `${BASE_URL}/dashboard/random`,
+        config
+      );
+
+      if (res.data && !res.data.message) {
+        setData([res.data]);   // show only random item
+        setCurrentPage(1);
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      }
+
+    } catch (error) {
+      if (error.response?.status === 403) {
+        setSessionExpired(true);
+      }
+      console.error("Random failed:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  /* ================================
      Delete
   ================================ */
   const handleDelete = async (id) => {
@@ -211,6 +241,10 @@ function App() {
 
         <button onClick={searchData}>Search</button>
         <button onClick={fetchData}>All</button>
+
+        <button onClick={getRandomInspiration}>
+          ✨ Random 
+        </button>
 
         <select
           value={selectedCategory}
