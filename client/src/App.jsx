@@ -228,7 +228,7 @@ function App() {
       <h1>📚 Social Saver Dashboard</h1>
 
       <div className="total-count">
-        Total Saved: {data.length}
+        Total Saved: {allData.length}
       </div>
 
       <div className="controls">
