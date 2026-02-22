@@ -11,7 +11,7 @@ It understands tone, sarcasm, meme culture, and multilingual content — then ge
 ## 🌐 Live
 
 🤖 **Telegram Bot:**  
-https://t.me/YOUR_BOT_USERNAME  
+https://t.me/social_saver_yk_bot
 
 📊 **Dashboard:**  
 https://social-saver-frontend.onrender.com  
@@ -107,6 +107,7 @@ React Dashboard (Vite)
   "image": "...",
   "createdAt": "timestamp"
 }
+
 
 
 
