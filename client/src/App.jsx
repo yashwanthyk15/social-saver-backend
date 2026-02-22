@@ -232,38 +232,39 @@ function App() {
       </div>
 
       <div className="controls">
-        <input
-          type="text"
-          placeholder="Search saved content..."
-          value={search}
-          onChange={(e) => setSearch(e.target.value)}
-        />
+  <input
+    type="text"
+    placeholder="Search saved content..."
+    value={search}
+    onChange={(e) => setSearch(e.target.value)}
+  />
 
-        <button onClick={searchData}>Search</button>
-        <button onClick={fetchData}>All</button>
+  <button onClick={searchData}>Search</button>
 
-        <button onClick={getRandomInspiration}>
-          ✨ Random 
-        </button>
+  <button onClick={fetchData}>All</button>
 
-        <select
-          value={selectedCategory}
-          onChange={(e) => filterCategory(e.target.value)}
-        >
-          <option value="">All Categories</option>
-          {categories.map((cat, index) => {
-            const count = allData.filter(
-              (item) => item.category === cat
-            ).length;
+  <button onClick={getRandomInspiration}>
+    ✨ Random Inspiration
+  </button>
 
-            return (
-              <option key={index} value={cat}>
-                {cat} ({count})
-              </option>
-            );
-          })}
-        </select>
-      </div>
+  <select
+    value={selectedCategory}
+    onChange={(e) => filterCategory(e.target.value)}
+  >
+    <option value="">All Categories</option>
+    {categories.map((cat, index) => {
+      const count = allData.filter(
+        (item) => item.category === cat
+      ).length;
+
+      return (
+        <option key={index} value={cat}>
+          {cat} ({count})
+        </option>
+      );
+    })}
+  </select>
+</div>
 
       {loading ? (
         <div className="empty">Loading...</div>
